@@ -7,6 +7,7 @@ import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -16,6 +17,7 @@ import android.view.SurfaceView;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import bytedance.com.tikshow.utils.Utils;
 import bytedance.com.tikshow.R;
@@ -63,7 +65,7 @@ public class CustomCameraActivity extends AppCompatActivity implements SurfaceHo
         findViewById(R.id.btn_picture).setOnClickListener(v -> {
             mCamera.takePicture(null,null,mPicture);
         });
-        Button record = findViewById(R.id.btn_record);
+        ImageView record = findViewById(R.id.btn_record);
         record.setOnClickListener(v -> {
             //todo 录制，第一次点击是start，第二次点击是stop
             if (isRecording) {
@@ -73,7 +75,7 @@ public class CustomCameraActivity extends AppCompatActivity implements SurfaceHo
                 mCamera.lock();         // take camera access back from MediaRecorder
 
                 // inform the user that recording has stopped
-                record.setText("Capture");
+                record.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.end));
                 isRecording = false;
             } else {
                 if (prepareVideoRecorder()) {
@@ -82,7 +84,7 @@ public class CustomCameraActivity extends AppCompatActivity implements SurfaceHo
                     mMediaRecorder.start();
 
                     // inform the user that recording has started
-                    record.setText("Stop");
+                    record.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.index_action3));
                     isRecording = true;
                 } else {
                     // prepare didn't work, release the camera
@@ -101,9 +103,9 @@ public class CustomCameraActivity extends AppCompatActivity implements SurfaceHo
             }
         });
 
-        findViewById(R.id.btn_zoom).setOnClickListener(v -> {
-            //todo 调焦，需要判断手机是否支持
-        });
+//        findViewById(R.id.btn_zoom).setOnClickListener(v -> {
+//            //todo 调焦，需要判断手机是否支持
+//        });
     }
     private void changeCamera() throws IOException{
         mCamera.stopPreview();
