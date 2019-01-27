@@ -6,6 +6,7 @@ import android.media.CamcorderProfile;
 import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
@@ -25,6 +26,8 @@ import bytedance.com.tikshow.R;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import static bytedance.com.tikshow.utils.Utils.MEDIA_TYPE_IMAGE;
@@ -46,6 +49,8 @@ public class CustomCameraActivity extends AppCompatActivity implements SurfaceHo
 
     private boolean isRecording = false;
 
+    private String videoFilePath;
+
     private int rotationDegree = 0;
 
     @Override
@@ -62,9 +67,9 @@ public class CustomCameraActivity extends AppCompatActivity implements SurfaceHo
         mHolder.addCallback(this);
         mHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 
-        findViewById(R.id.btn_picture).setOnClickListener(v -> {
-            mCamera.takePicture(null,null,mPicture);
-        });
+//        findViewById(R.id.btn_picture).setOnClickListener(v -> {
+//            mCamera.takePicture(null,null,mPicture);
+//        });
         ImageView record = findViewById(R.id.btn_record);
         record.setOnClickListener(v -> {
             //todo 录制，第一次点击是start，第二次点击是stop
@@ -72,19 +77,29 @@ public class CustomCameraActivity extends AppCompatActivity implements SurfaceHo
                 //todo 停止录制
                 mMediaRecorder.stop();  // stop the recording
                 releaseMediaRecorder(); // release the MediaRecorder object
+
                 mCamera.lock();         // take camera access back from MediaRecorder
 
                 // inform the user that recording has stopped
-                record.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.end));
+                record.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.index_action3));
                 isRecording = false;
+                mCamera.stopPreview();
+                mCamera.release();
+                try {
+                    Thread.currentThread().sleep(3000);//毫秒
+                } catch (Exception e) {
+                }
+                Intent intent = new Intent(CustomCameraActivity.this, VideoPlay.class);
+                intent.putExtra("path", videoFilePath);
+                startActivity(intent);
             } else {
                 if (prepareVideoRecorder()) {
                     // Camera is available and unlocked, MediaRecorder is prepared,
                     // now you can start recording
                     mMediaRecorder.start();
-
+                    record.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.end));
                     // inform the user that recording has started
-                    record.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.index_action3));
+
                     isRecording = true;
                 } else {
                     // prepare didn't work, release the camera
@@ -214,7 +229,8 @@ public class CustomCameraActivity extends AppCompatActivity implements SurfaceHo
         mMediaRecorder.setProfile(CamcorderProfile.get(CamcorderProfile.QUALITY_HIGH));
 
         // Step 4: Set output file
-        mMediaRecorder.setOutputFile(getOutputMediaFile(MEDIA_TYPE_VIDEO).toString());
+        videoFilePath = getOutputMediaFile(MEDIA_TYPE_VIDEO).toString();
+        mMediaRecorder.setOutputFile(videoFilePath);
 
         // Step 5: Set the preview output
         mMediaRecorder.setPreviewDisplay(mSurfaceView.getHolder().getSurface());

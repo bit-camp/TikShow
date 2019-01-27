@@ -209,7 +209,7 @@ public class MainPageActivity extends AppCompatActivity {
     }
 
     public void RecordVideo(View view){
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.RECORD_AUDIO}, REQUEST_CAPTURE);
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.RECORD_AUDIO,Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CAPTURE);
         startActivity(new Intent(this, CustomCameraActivity.class));
     }
     public void fetchFeed() {

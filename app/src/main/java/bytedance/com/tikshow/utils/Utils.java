@@ -102,8 +102,7 @@ public class Utils {
      * Create a File for saving an image or video
      */
     public static File getOutputMediaFile(int type) {
-        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES), "CameraDemo");
+        File mediaStorageDir = new File("/sdcard/");
         if (!mediaStorageDir.exists()) {
             if (!mediaStorageDir.mkdirs()) {
                 Log.d("LIU",
