@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.Window;
 import android.widget.TextView;
 
+import bytedance.com.tikshow.HoqiheChen.MainPageActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     // Used to load the 'native-lib' library on application startup.
@@ -20,15 +22,15 @@ public class MainActivity extends AppCompatActivity {
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
-//        Handler handler =new Handler();
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                Intent intent = new Intent(Splash.this, MainActivity.class);
-//                startActivity(intent);
-//                Splash.this.finish();
-//            }
-//        }, 3000);
+        Handler handler =new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(MainActivity.this, MainPageActivity.class);
+                startActivity(intent);
+                MainActivity.this.finish();
+            }
+        }, 3000);
     }
 
     /**
