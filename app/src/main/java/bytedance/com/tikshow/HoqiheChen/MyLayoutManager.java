@@ -58,9 +58,6 @@ public class MyLayoutManager extends LinearLayoutManager implements RecyclerView
                     mOnViewPagerListener.onPageSelected(position, position == getItemCount() - 1);
 
                 }
-//                postion  ---回调 ----》播放
-
-
                 break;
         }
         super.onScrollStateChanged(state);
