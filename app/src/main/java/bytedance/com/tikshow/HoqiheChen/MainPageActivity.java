@@ -1,5 +1,6 @@
 package bytedance.com.tikshow.HoqiheChen;
 
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
@@ -7,6 +8,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
@@ -27,6 +29,7 @@ import java.util.List;
 
 import bytedance.com.tikshow.MainActivity;
 import bytedance.com.tikshow.R;
+import bytedance.com.tikshow.antoniolq.CustomCameraActivity;
 import bytedance.com.tikshow.bean.Feed;
 import bytedance.com.tikshow.bean.FeedResponse;
 import bytedance.com.tikshow.network.IMiniDouyinService;
@@ -38,6 +41,7 @@ import retrofit2.Response;
 
 public class MainPageActivity extends AppCompatActivity {
 
+    private static final int REQUEST_CAPTURE = 1;
     private static final String TAG = "HoqiheChen";
     private RecyclerView mRecyclerView;
     private TextView textView;
@@ -204,6 +208,10 @@ public class MainPageActivity extends AppCompatActivity {
         startActivity(new Intent(this, MainActivity.class));
     }
 
+    public void RecordVideo(View view){
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.RECORD_AUDIO}, REQUEST_CAPTURE);
+        startActivity(new Intent(this, CustomCameraActivity.class));
+    }
     public void fetchFeed() {
 
         RetrofitManager.get(IMiniDouyinService.HOST).create(IMiniDouyinService.class).fetchFeed().enqueue(new Callback<FeedResponse>() {

@@ -115,6 +115,7 @@
             android:layout_height="30dp"
             android:layout_weight="1"
             android:src="@mipmap/add_bg"
+            android:onClick="RecordVideo"
             />
 
         <TextView
