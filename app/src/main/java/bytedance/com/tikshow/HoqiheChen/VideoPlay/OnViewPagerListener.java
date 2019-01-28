@@ -1,4 +1,4 @@
-package bytedance.com.tikshow.HoqiheChen;
+package bytedance.com.tikshow.HoqiheChen.VideoPlay;
 
 public interface OnViewPagerListener {
     /*初始化完成*/

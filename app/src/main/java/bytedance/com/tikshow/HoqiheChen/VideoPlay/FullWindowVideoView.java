@@ -1,4 +1,4 @@
-package bytedance.com.tikshow.HoqiheChen;
+package bytedance.com.tikshow.HoqiheChen.VideoPlay;
 
 import android.content.Context;
 import android.util.AttributeSet;

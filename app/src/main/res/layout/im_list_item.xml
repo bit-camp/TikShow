@@ -18,7 +18,7 @@
         android:layout_marginEnd="12dp"
         android:layout_marginRight="12dp">
 
-        <bytedance.com.tikshow.HoqiheChen.CircleImageView
+        <bytedance.com.tikshow.HoqiheChen.MessageWatch.CircleImageView
             android:id="@+id/iv_avatar"
             android:layout_width="48dp"
             android:layout_height="48dp"

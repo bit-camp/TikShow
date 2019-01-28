@@ -1,4 +1,4 @@
-package bytedance.com.tikshow.HoqiheChen;
+package bytedance.com.tikshow.HoqiheChen.VideoPlay;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -6,6 +6,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
+import bytedance.com.tikshow.HoqiheChen.VideoPlay.OnViewPagerListener;
 
 public class MyLayoutManager extends LinearLayoutManager implements RecyclerView.OnChildAttachStateChangeListener {
     private int mDrift;//位移，用来判断移动方向

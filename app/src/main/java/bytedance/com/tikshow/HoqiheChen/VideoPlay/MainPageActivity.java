@@ -1,4 +1,4 @@
-package bytedance.com.tikshow.HoqiheChen;
+package bytedance.com.tikshow.HoqiheChen.VideoPlay;
 
 import android.Manifest;
 import android.annotation.TargetApi;
@@ -29,6 +29,7 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.List;
 
+import bytedance.com.tikshow.HoqiheChen.MessageWatch.InfoActivity;
 import bytedance.com.tikshow.MainActivity;
 import bytedance.com.tikshow.R;
 import bytedance.com.tikshow.antoniolq.CustomCameraActivity;
