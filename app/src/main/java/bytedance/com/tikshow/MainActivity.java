@@ -5,9 +5,8 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
-import android.widget.TextView;
 
-import bytedance.com.tikshow.HoqiheChen.MainPageActivity;
+import bytedance.com.tikshow.HoqiheChen.VideoPlay.MainPageActivity;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package bytedance.com.tikshow.HoqiheChen;
+package bytedance.com.tikshow.HoqiheChen.VideoPlay;
 
 import android.Manifest;
 import android.annotation.TargetApi;
@@ -9,6 +9,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
@@ -27,6 +29,7 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.List;
 
+import bytedance.com.tikshow.HoqiheChen.MessageWatch.InfoActivity;
 import bytedance.com.tikshow.MainActivity;
 import bytedance.com.tikshow.R;
 import bytedance.com.tikshow.antoniolq.CustomCameraActivity;
@@ -48,6 +51,7 @@ public class MainPageActivity extends AppCompatActivity {
     private MyAdapter mAdapter;
     MyLayoutManager myLayoutManager;
     private List<Feed> mFeeds = new ArrayList<>();
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +69,7 @@ public class MainPageActivity extends AppCompatActivity {
         mAdapter = new MyAdapter(this);
         mRecyclerView.setLayoutManager(myLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
 
     }
 
@@ -93,10 +98,20 @@ public class MainPageActivity extends AppCompatActivity {
 
                 playVideo(0);
             }
+        });
 
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onPageJudged(int position, boolean isTop) {
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(true);
                 fetchFeed();
+                new Handler().postDelayed(new Runnable() {//模拟耗时操作
+                    @Override
+                    public void run() {
+                        swipeRefreshLayout.setRefreshing(false);//取消刷新
+
+                    }
+                },2000);
             }
         });
     }
@@ -151,6 +166,7 @@ public class MainPageActivity extends AppCompatActivity {
 
     private void releaseVideo(int index) {
         View itemView = mRecyclerView.getChildAt(index);
+        if(itemView == null) return;
         final VideoView videoView = itemView.findViewById(R.id.video_view);
         final ImageView imgThumb = itemView.findViewById(R.id.img_thumb);
         final ImageView imgPlay = itemView.findViewById(R.id.img_play);
@@ -211,6 +227,9 @@ public class MainPageActivity extends AppCompatActivity {
     public void RecordVideo(View view){
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.RECORD_AUDIO,Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CAPTURE);
         startActivity(new Intent(this, CustomCameraActivity.class));
+    }
+    public void Message(View view){
+        startActivity(new Intent(this, InfoActivity.class));
     }
     public void fetchFeed() {
 

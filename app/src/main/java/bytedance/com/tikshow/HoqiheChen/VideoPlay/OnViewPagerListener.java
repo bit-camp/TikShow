@@ -1,4 +1,4 @@
-package bytedance.com.tikshow.HoqiheChen;
+package bytedance.com.tikshow.HoqiheChen.VideoPlay;
 
 public interface OnViewPagerListener {
     /*初始化完成*/
@@ -10,6 +10,4 @@ public interface OnViewPagerListener {
     /*选中的监听以及判断是否滑动到底部*/
     void onPageSelected(int position, boolean isBottom);
 
-    /*选中的监听以及判断是否滑动到顶部*/
-    void onPageJudged(int position, boolean isTop);
 }

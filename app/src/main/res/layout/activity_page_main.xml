@@ -6,11 +6,16 @@
     android:layout_height="match_parent"
     android:background="@android:color/black"
     >
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -120,6 +125,7 @@
 
         <TextView
             android:layout_width="0dp"
+            android:clickable="true"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
@@ -127,6 +133,7 @@
             android:textColor="#f2f2f2"
             android:textSize="17sp"
             android:textStyle="bold"
+            android:onClick="Message"
             />
 
         <TextView
