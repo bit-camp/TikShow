@@ -56,6 +56,7 @@ public class MainPageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.RECORD_AUDIO,Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CAPTURE);
         setContentView(R.layout.activity_page_main);
         initView();
         initListener();
@@ -225,7 +226,6 @@ public class MainPageActivity extends AppCompatActivity {
     }
 
     public void RecordVideo(View view){
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.RECORD_AUDIO,Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CAPTURE);
         startActivity(new Intent(this, CustomCameraActivity.class));
     }
     public void Message(View view){

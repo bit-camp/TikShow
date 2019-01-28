@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -41,6 +42,8 @@ public class CustomCameraActivity extends AppCompatActivity implements SurfaceHo
     private SurfaceHolder mHolder;
 
     private String TAG = "LIU";
+    private Uri mSelectedVideo;
+    private static final int PICK_VIDEO = 2;
 
     private int currentCameraType = 0;
 
@@ -52,6 +55,8 @@ public class CustomCameraActivity extends AppCompatActivity implements SurfaceHo
     private String videoFilePath;
 
     private int rotationDegree = 0;
+
+    private ImageView local;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,14 +89,11 @@ public class CustomCameraActivity extends AppCompatActivity implements SurfaceHo
                 record.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.index_action3));
                 isRecording = false;
                 mCamera.stopPreview();
-                mCamera.release();
-                try {
-                    Thread.currentThread().sleep(3000);//毫秒
-                } catch (Exception e) {
-                }
                 Intent intent = new Intent(CustomCameraActivity.this, VideoPlay.class);
                 intent.putExtra("path", videoFilePath);
+                intent.putExtra("flag",0);
                 startActivity(intent);
+                finish();
             } else {
                 if (prepareVideoRecorder()) {
                     // Camera is available and unlocked, MediaRecorder is prepared,
@@ -108,7 +110,12 @@ public class CustomCameraActivity extends AppCompatActivity implements SurfaceHo
                 }
             }
         });
-
+        findViewById(R.id.local).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chooseVideo();
+            }
+        });
         findViewById(R.id.btn_facing).setOnClickListener(v -> {
             try {
                 changeCamera();
@@ -142,9 +149,35 @@ public class CustomCameraActivity extends AppCompatActivity implements SurfaceHo
         Camera cam = Camera.open(position);
 
         //todo 摄像头添加属性，例是否自动对焦，设置旋转方向等
-        int rotationDegree = getCameraDisplayOrientation(0);
+        int rotationDegree = getCameraDisplayOrientation(currentCameraType);
         cam.setDisplayOrientation(rotationDegree);
         return cam;
+    }
+
+    public void chooseVideo() {
+        Intent intent = new Intent();
+        intent.setType("video/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Video"),
+                PICK_VIDEO);
+
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Log.d(TAG, "onActivityResult() called with: requestCode = [" + requestCode + "], resultCode = [" + resultCode + "], data = [" + data + "]");
+
+        if (resultCode == RESULT_OK && null != data) {
+            if (requestCode == PICK_VIDEO) {
+                mSelectedVideo = data.getData();
+                Intent intent = new Intent(CustomCameraActivity.this, VideoPlay.class);
+                intent.putExtra("path", mSelectedVideo.toString());
+                intent.putExtra("flag",1);
+                startActivity(intent);
+                finish();
+            }
+        }
     }
 
 
@@ -216,7 +249,7 @@ public class CustomCameraActivity extends AppCompatActivity implements SurfaceHo
 
     private boolean prepareVideoRecorder() {
         mMediaRecorder = new MediaRecorder();
-
+        mMediaRecorder.setOrientationHint(90);
         // Step 1: Unlock and set camera to MediaRecorder
         mCamera.unlock();
         mMediaRecorder.setCamera(mCamera);
@@ -289,6 +322,14 @@ public class CustomCameraActivity extends AppCompatActivity implements SurfaceHo
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+        mCamera.autoFocus(new Camera.AutoFocusCallback() {
+            @Override
+            public void onAutoFocus(boolean success, Camera camera) {
+                if (success) {
+                    camera.cancelAutoFocus();// 只有加上了这一句，才会自动对焦
+                }
+            }
+        });
     }
 
     @Override

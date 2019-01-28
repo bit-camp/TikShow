@@ -10,6 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:orientation="vertical">
 
         <Button
@@ -20,12 +21,14 @@
             android:layout_marginRight="20dp"
             android:background="@drawable/tv_red_bg"
             android:text="上传"
+            android:id="@+id/post"
             android:textColor="@color/white"
             android:textSize="18sp" />
     </LinearLayout>
     <VideoView
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_gravity="center"
+        android:layout_width="240dp"
+        android:layout_height="426dp"
         android:layout_margin="10dp"
         android:id="@+id/play"
         />
@@ -41,6 +44,7 @@
             android:layout_height="25dp"
             android:textSize="18sp"
             android:text="请上传封面"
+            android:id="@+id/image"
             android:layout_marginLeft="80dp"
             android:layout_marginRight="80dp"
             android:textColor="@color/white"
@@ -50,12 +54,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp">
         <TextView
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="学号"
+            android:text="请输入学号："
             android:textSize="18sp"
             android:layout_marginLeft="20dp"
             android:textColor="@color/white"/>
@@ -72,12 +78,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp">
         <TextView
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="姓名"
+            android:text="请输入姓名："
             android:textSize="18sp"
             android:layout_marginLeft="20dp"
             android:textColor="@color/white"/>
