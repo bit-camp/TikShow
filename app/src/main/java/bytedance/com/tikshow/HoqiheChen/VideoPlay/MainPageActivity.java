@@ -33,6 +33,7 @@ import bytedance.com.tikshow.HoqiheChen.MessageWatch.InfoActivity;
 import bytedance.com.tikshow.MainActivity;
 import bytedance.com.tikshow.R;
 import bytedance.com.tikshow.antoniolq.CustomCameraActivity;
+import bytedance.com.tikshow.antoniolq.Login;
 import bytedance.com.tikshow.bean.Feed;
 import bytedance.com.tikshow.bean.FeedResponse;
 import bytedance.com.tikshow.network.IMiniDouyinService;
@@ -230,6 +231,10 @@ public class MainPageActivity extends AppCompatActivity {
     }
     public void Message(View view){
         startActivity(new Intent(this, InfoActivity.class));
+    }
+
+    public void loginPage(View view){
+        startActivity(new Intent(this, Login.class));
     }
     public void fetchFeed() {
 

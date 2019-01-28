@@ -37,4 +37,5 @@
     <color name="middle_gray">#7f808080</color>
     <color name="color_454545">#454545</color> <!--灰色 -->
     <color name="FAE000">#FAE000</color>
+    <color name="background">#ddefeeee</color>
 </resources>

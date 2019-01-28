@@ -14,14 +14,14 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
-        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:icon="@mipmap/header_icon_1"
         android:label="@string/app_name"
         android:resizeableActivity="true"
         android:roundIcon="@mipmap/header_icon_1"
         android:supportsRtl="true"
-        android:theme="@style/main_theme">
+        android:theme="@style/main_theme"
+        android:usesCleartextTraffic="true">
         <meta-data
             android:name="android.max_aspect"
             android:value="2.1" />
@@ -35,8 +35,9 @@
         </activity>
         <activity android:name=".HoqiheChen.VideoPlay.MainPageActivity" />
         <activity android:name=".antoniolq.CustomCameraActivity" />
-        <activity android:name=".antoniolq.VideoPlay"></activity>
-        <activity android:name=".HoqiheChen.MessageWatch.InfoActivity"></activity>
+        <activity android:name=".antoniolq.VideoPlay" />
+        <activity android:name=".HoqiheChen.MessageWatch.InfoActivity" />
+        <activity android:name=".antoniolq.Login"></activity>
     </application>
 
 </manifest>
