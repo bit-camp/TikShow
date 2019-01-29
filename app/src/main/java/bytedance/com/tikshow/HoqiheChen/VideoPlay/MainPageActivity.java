@@ -72,7 +72,6 @@ public class MainPageActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(myLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
         swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
-
     }
 
     private void initListener() {
@@ -142,7 +141,7 @@ public class MainPageActivity extends AppCompatActivity {
             Glide.with(holder.img_thumb.getContext()).load(mFeeds.get(position).getImageUrl()).into(holder.img_thumb);
 //            holder.img_thumb.setImageURI(Uri.parse(mFeeds.get(position).getImageUrl()));
             holder.videoView.setVideoURI(Uri.parse(mFeeds.get(position).getVideoUrl()));
-
+            holder.textView.setText(mFeeds.get(position).getUserName());
         }
 
         @Override
@@ -155,6 +154,7 @@ public class MainPageActivity extends AppCompatActivity {
             VideoView videoView;
             ImageView img_play;
             RelativeLayout rootView;
+            TextView textView;
 
             public ViewHolder(View itemView) {
                 super(itemView);
@@ -162,6 +162,7 @@ public class MainPageActivity extends AppCompatActivity {
                 videoView = itemView.findViewById(R.id.video_view);
                 img_play = itemView.findViewById(R.id.img_play);
                 rootView = itemView.findViewById(R.id.root_view);
+                textView = itemView.findViewById(R.id.name);
             }
         }
     }
